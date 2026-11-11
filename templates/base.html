@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="theme-color" content="#211230">
+  <meta name="description" content="eye✿wonder — a blooming computer vision laboratory hub for CSST106.">
+  <title>{% block title %}eye✿wonder — CSST106{% endblock %}</title>
+  <link rel="icon" href="{{ url_for('static',filename='assets/icon.svg') }}" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
+</head>
+<body data-page="{{ page }}">
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+    <div class="sidebar-orb one"></div><div class="sidebar-orb two"></div>
+    <div class="sidebar-inner">
+      <a class="brand" href="{{ url_for('dashboard') }}" aria-label="eye✿wonder home">
+        <span class="brand-mark"><span class="brand-flower">✿</span><span class="brand-dot"></span></span>
+        <span class="brand-name"> <strong>eye<span>✿</span>wonder</strong><small>THE CREATIVE CV SPACE</small></span>
+      </a>
+      <div class="sidebar-divider"></div>
+      <span class="side-label">WORKSPACE</span>
+      <a class="side-link {% if page=='dashboard' %}active{% endif %}" href="{{ url_for('dashboard') }}"><span class="nav-symbol">⌂</span> Overview <span class="nav-end">↗</span></a>
+      <a class="side-link {% if page=='guide' %}active{% endif %}" href="{{ url_for('guide') }}"><span class="nav-symbol">☷</span> Project guide <span class="nav-end">↗</span></a>
+      <span class="side-label lab-label">YOUR EXPERIMENTS <span class="side-count">07</span></span>
+      <nav class="lab-navigation" aria-label="Laboratory modules">
+      {% for item in labs %}
+        <a class="side-link lab-link {% if lab is defined and lab.id == item.id %}active{% endif %}" href="{{ url_for('laboratory',lab_id=item.id) }}">
+          <span class="lab-index">{{ '%02d'|format(item.id) }}</span><span>{{ item.short }}</span><span class="nav-end">↗</span>
+        </a>
+      {% endfor %}
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="buddy-card">
+          <div class="buddy-flower"><img src="{{ url_for('static',filename='assets/flower-buddy.gif') }}" alt="Animated smiling lavender flower mascot"></div>
+          <div><strong>You're blooming!</strong><p>Big ideas start with little experiments.</p></div>
+        </div>
+        <div class="semester">✦ CSST106 <span>·</span> AY 2026–2027</div>
+      </div>
+    </div>
+  </aside>
+  <div class="mobile-dim" id="mobileDim" aria-hidden="true"></div>
+  <div class="content-shell">
+    <div class="announce-bar"><span class="announce-spark">✦</span> COMPUTER VISION & PERCEPTION <span class="announce-sep">/</span> 7 INTERACTIVE LAB MODULES <span class="announce-right">DESIGNED TO LEARN, MADE TO BLOOM <span>✿</span></span></div>
+    <header class="topbar">
+      <div class="topbar-left"><button type="button" class="mobile-menu icon-button" id="menuToggle" aria-label="Toggle navigation">☰</button><div class="breadcrumbs"><a href="{{ url_for('dashboard') }}">Workspace</a><span>/</span><b>{% if page=='dashboard' %}Overview{% elif page=='guide' %}Project guide{% elif lab is defined %}Lab {{ '%02d'|format(lab.id) }}{% else %}Page not found{% endif %}</b></div></div>
+      <div class="topbar-actions"><div class="status-pill"><span class="status-indicator"></span> Creative mode: ON</div><a class="header-avatar" href="{{ url_for('guide') }}" aria-label="Project guide">✿</a></div>
+    </header>
+    <main id="main-content">{% block content %}{% endblock %}</main>
+    <footer class="footer"><div>✿ <strong>eye✿wonder</strong> <span>·</span> Grow your curiosity, one pixel at a time.</div><div>CSST106 <span>♡</span> Mariabel M. Bulos</div></footer>
+  </div>
+</div>
+<script src="{{ url_for('static',filename='js/app.js') }}" defer></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="theme-color" content="#211230">
+  <meta name="description" content="eye✿wonder — a blooming computer vision laboratory hub for CSST106.">
+  <title>Project Guide | eye✿wonder</title>
+  <link rel="icon" href="static/assets/icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body data-page="guide">
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+    <div class="sidebar-orb one"></div><div class="sidebar-orb two"></div>
+    <div class="sidebar-inner">
+      <a class="brand" href="preview.html" aria-label="eye✿wonder home">
+        <span class="brand-mark"><span class="brand-flower">✿</span><span class="brand-dot"></span></span>
+        <span class="brand-name"><strong>eye✿wonder</strong><small>THE CREATIVE CV SPACE</small></span>
+      </a>
+      <div class="sidebar-divider"></div>
+      <span class="side-label">WORKSPACE</span>
+      <a class="side-link " href="preview.html"><span class="nav-symbol">⌂</span> Overview <span class="nav-end">↗</span></a>
+      <a class="side-link active" href="preview-guide.html"><span class="nav-symbol">☷</span> Project guide <span class="nav-end">↗</span></a>
+      <span class="side-label lab-label">YOUR EXPERIMENTS <span class="side-count">07</span></span>
+      <nav class="lab-navigation" aria-label="Laboratory modules">
+
+        <a class="side-link lab-link " href="preview-lab01.html">
+          <span class="lab-index">01</span><span>Image Manipulation</span><span class="nav-end">↗</span>
+        </a>
+
+        <a class="side-link lab-link " href="preview-lab02.html">
+          <span class="lab-index">02</span><span>Edge Detection</span><span class="nav-end">↗</span>
+        </a>
+
+        <a class="side-link lab-link " href="preview-lab03.html">
+          <span class="lab-index">03</span><span>Histogram &amp; Contrast</span><span class="nav-end">↗</span>
+        </a>
+
+        <a class="side-link lab-link " href="preview-lab04.html">
+          <span class="lab-index">04</span><span>Feature Detection</span><span class="nav-end">↗</span>
+        </a>
+
+        <a class="side-link lab-link " href="preview-lab05.html">
+          <span class="lab-index">05</span><span>PCA &amp; Eigenfaces</span><span class="nav-end">↗</span>
+        </a>
+
+        <a class="side-link lab-link " href="preview-lab06.html">
+          <span class="lab-index">06</span><span>YOLO Detection</span><span class="nav-end">↗</span>
+        </a>
+
+        <a class="side-link lab-link " href="preview-lab07.html">
+          <span class="lab-index">07</span><span>Segmentation</span><span class="nav-end">↗</span>
+        </a>
+
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="buddy-card">
+          <div class="buddy-flower"><img src="static/assets/flower-buddy.gif" alt="Animated smiling lavender flower mascot"></div>
+          <div><strong>You're blooming!</strong><p>Big ideas start with little experiments.</p></div>
+        </div>
+        <div class="semester">✦ CSST106 <span>·</span> AY 2026–2027</div>
+      </div>
+    </div>
+  </aside>
+  <div class="mobile-dim" id="mobileDim" aria-hidden="true"></div>
+  <div class="content-shell">
+    <div class="announce-bar"><span class="announce-spark">✦</span> COMPUTER VISION & PERCEPTION <span class="announce-sep">/</span> 7 INTERACTIVE LAB MODULES <span class="announce-right">DESIGNED TO LEARN, MADE TO BLOOM <span>✿</span></span></div>
+    <header class="topbar">
+      <div class="topbar-left"><button type="button" class="mobile-menu icon-button" id="menuToggle" aria-label="Toggle navigation">☰</button><div class="breadcrumbs"><a href="preview.html">Workspace</a><span>/</span><b>Project guide</b></div></div>
+      <div class="topbar-actions"><div class="status-pill"><span class="status-indicator"></span> Creative mode: ON</div><a class="header-avatar" href="preview-guide.html" aria-label="Project guide">✿</a></div>
+    </header>
+    <main id="main-content">
+<div class="page-padding guide-page"><span class="eyebrow">WELCOME TO YOUR WORKSPACE ✳</span><h1>Every pixel is <em>a possibility.</em></h1><p class="guide-lead">A friendly guide to your CSST106 Computer Vision laboratory portfolio, designed for running experiments and presenting your actual results.</p>
+<div class="guide-grid"><section class="guide-card"><span class="guide-number">01</span><h2>Choose an experiment</h2><p>Use the left sidebar or dashboard cards to open any of the seven modules.</p></section><section class="guide-card"><span class="guide-number">02</span><h2>Upload or capture</h2><p>Pick a photo, use your camera, or try the included synthetic flower sample. YOLO also supports short video uploads.</p></section><section class="guide-card"><span class="guide-number">03</span><h2>Tune & run</h2><p>Adjust algorithm parameters; click “Run experiment” to process data locally and compare before/after outputs.</p></section><section class="guide-card"><span class="guide-number">04</span><h2>Document your findings</h2><p>Save screenshots of actual outputs for your printed report, then push the project source to your GitHub repository.</p></section></div>
+<section class="guide-important"><span>✿ SUBMISSION CHECKLIST</span><h2>Two parts, one cohesive project.</h2><div class="checklist"><label><input type="checkbox"> All seven labs can be opened from the same Web UI</label><label><input type="checkbox"> Each working technique can be demonstrated with real input and output</label><label><input type="checkbox"> Source code, setup instructions, and project files are on GitHub</label><label><input type="checkbox"> Printed report includes objectives, procedures, techniques, screenshots, results, and conclusions for each lab</label><label><input type="checkbox"> Code and printed report reflect the actual implementation</label></div></section>
+<section class="guide-bottom"><h2>Some advanced experiments need extra setup.</h2><p>Feature detection supports SIFT and ORB immediately. True SURF requires OpenCV built with nonfree support. YOLO11 and DeepLabV3 use separately installed deep learning libraries and pretrained model weights. LFW Eigenfaces may download data on first use. The custom YOLO training/validation stage must be performed separately and documented using your real dataset and metrics.</p><a class="btn btn-purple" href="preview-lab01.html">Go to Lab 01 <span>↗</span></a></section>
+</div>
+</main>
+    <footer class="footer"><div>✿ <strong>eye✿wonder</strong> <span>·</span> Grow your curiosity, one pixel at a time.</div><div>CSST106 <span>♡</span> Computer Vision & Perception</div></footer>
+  </div>
+</div>
+<script src="static/js/app.js" defer></script>
+
+</body>
+</html>

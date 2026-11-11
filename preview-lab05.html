@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="theme-color" content="#211230">
+  <meta name="description" content="eye✿wonder — a blooming computer vision laboratory hub for CSST106.">
+  <title>Lab 05 — PCA &amp; Eigenfaces | eye✿wonder</title>
+  <link rel="icon" href="static/assets/icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body data-page="lab">
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar" aria-label="Main navigation">
+    <div class="sidebar-orb one"></div><div class="sidebar-orb two"></div>
+    <div class="sidebar-inner">
+      <a class="brand" href="preview.html" aria-label="eye✿wonder home">
+        <span class="brand-mark"><span class="brand-flower">✿</span><span class="brand-dot"></span></span>
+        <span class="brand-name"><strong>vision<span>lab</span></strong><small>THE CREATIVE CV SPACE</small></span>
+      </a>
+      <div class="sidebar-divider"></div>
+      <span class="side-label">WORKSPACE</span>
+      <a class="side-link " href="preview.html"><span class="nav-symbol">⌂</span> Overview <span class="nav-end">↗</span></a>
+      <a class="side-link " href="preview-guide.html"><span class="nav-symbol">☷</span> Project guide <span class="nav-end">↗</span></a>
+      <span class="side-label lab-label">YOUR EXPERIMENTS <span class="side-count">07</span></span>
+      <nav class="lab-navigation" aria-label="Laboratory modules">
+
+        <a class="side-link lab-link " href="preview-lab01.html">
+          <span class="lab-index">01</span><span>Image Manipulation</span><span class="nav-end">↗</span>
+        </a>
+
+        <a class="side-link lab-link " href="preview-lab02.html">
+          <span class="lab-index">02</span><span>Edge Detection</span><span class="nav-end">↗</span>
+        </a>
+
+        <a class="side-link lab-link " href="preview-lab03.html">
+          <span class="lab-index">03</span><span>Histogram &amp; Contrast</span><span class="nav-end">↗</span>
+        </a>
+
+        <a class="side-link lab-link " href="preview-lab04.html">
+          <span class="lab-index">04</span><span>Feature Detection</span><span class="nav-end">↗</span>
+        </a>
+
+        <a class="side-link lab-link active" href="preview-lab05.html">
+          <span class="lab-index">05</span><span>PCA &amp; Eigenfaces</span><span class="nav-end">↗</span>
+        </a>
+
+        <a class="side-link lab-link " href="preview-lab06.html">
+          <span class="lab-index">06</span><span>YOLO Detection</span><span class="nav-end">↗</span>
+        </a>
+
+        <a class="side-link lab-link " href="preview-lab07.html">
+          <span class="lab-index">07</span><span>Segmentation</span><span class="nav-end">↗</span>
+        </a>
+
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="buddy-card">
+          <div class="buddy-flower"><img src="static/assets/flower-buddy.gif" alt="Animated smiling lavender flower mascot"></div>
+          <div><strong>You're blooming!</strong><p>Big ideas start with little experiments.</p></div>
+        </div>
+        <div class="semester">✦ CSST106 <span>·</span> AY 2026–2027</div>
+      </div>
+    </div>
+  </aside>
+  <div class="mobile-dim" id="mobileDim" aria-hidden="true"></div>
+  <div class="content-shell">
+    <div class="announce-bar"><span class="announce-spark">✦</span> COMPUTER VISION & PERCEPTION <span class="announce-sep">/</span> 7 INTERACTIVE LAB MODULES <span class="announce-right">DESIGNED TO LEARN, MADE TO BLOOM <span>✿</span></span></div>
+    <header class="topbar">
+      <div class="topbar-left"><button type="button" class="mobile-menu icon-button" id="menuToggle" aria-label="Toggle navigation">☰</button><div class="breadcrumbs"><a href="preview.html">Workspace</a><span>/</span><b>Lab 05</b></div></div>
+      <div class="topbar-actions"><div class="status-pill"><span class="status-indicator"></span> Creative mode: ON</div><a class="header-avatar" href="preview-guide.html" aria-label="Project guide">✿</a></div>
+    </header>
+    <main id="main-content">
+<div class="lab-page page-padding" data-lab="5">
+  <a class="back-link" href="preview.html#modules">← Back to laboratories</a>
+  <div class="lab-heading"><div><span class="eyebrow">EXPERIMENT 05 / 07 <span>✳</span> DIMENSIONALITY REDUCTION</span><h1>PCA &amp; Eigenfaces<span class="title-flower">✿</span></h1><p>Compress images using principal components, or run the assigned Eigenfaces and SVM recognition experiment with LFW.</p><div class="tag-list"><span>PCA</span><span>Eigenfaces</span><span>SVM</span></div></div><div class="lab-heading-art theme-lavender"><div class="lab-heading-orbit"></div><img src="static/assets/robot-flower.svg" alt="eye✿wonder assistant"></div></div>
+  <div class="workbench" id="workbench">
+    <div class="control-panel"><div class="panel-heading"><span class="panel-number">01</span><div><h2>Experiment settings</h2><p>Make it yours. Let's get exploring.</p></div></div>
+      <form id="processForm" enctype="multipart/form-data">
+
+        <div class="field"><label for="mode">Experiment mode</label><select name="mode" id="mode"><option value="compression">Image PCA compression</option><option value="faces">LFW · Eigenfaces + SVM</option></select><span class="field-help">LFW uses the real face dataset and can require a first-time download.</span></div>
+
+
+        <div class="upload-wrapper" id="uploadWrapper"><div class="field-label">01 / YOUR INPUT</div><label class="upload-zone" for="imageInput" id="dropZone"><input type="file" name="image" id="imageInput" accept="image/png,image/jpeg,image/webp,image/bmp" hidden><span class="upload-flower">✿</span><strong>Drop your image here</strong><small>or click to browse files</small><span class="upload-types">JPG, PNG, WEBP · up to 32 MB</span></label><div class="chosen-file" id="chosenFile" hidden><span>◈</span><span id="chosenFileName"></span><button type="button" id="removeFile" aria-label="Remove image">×</button></div><div class="upload-helper"><button type="button" class="mini-btn" id="sampleButton">✿ Try sample flower</button><button type="button" class="mini-btn" id="cameraButton">◎ Use camera</button></div></div>
+
+        <div class="fields-section" id="fieldsSection"><div class="field-label">02 / TUNE YOUR SETTINGS</div>
+
+        <div class="field"><label for="components">PCA components <output id="componentsValue">28</output></label><input type="range" id="components" name="components" min="2" max="150" value="28"></div><p class="setting-footnote">The assigned LFW mode uses PCA whitening and a balanced RBF SVM classifier.</p>
+
+        </div>
+        <button type="submit" class="btn btn-run" id="runButton"><span>✦</span> Run experiment <span class="run-arrow">↗</span></button><p class="control-footnote">✿ Image processing runs locally on your Python server.</p>
+      </form>
+    </div>
+    <div class="result-panel"><div class="panel-heading"><span class="panel-number">02</span><div><h2>Your vision, reimagined</h2><p>Original input and algorithm outputs appear here.</p></div><span class="results-status" id="resultsStatus">READY TO EXPLORE</span></div>
+    <div class="empty-results" id="emptyResults"><div class="empty-art"><span class="empty-ring r1"></span><span class="empty-ring r2"></span><img src="static/assets/robot-flower.svg" alt="Friendly robot awaiting an experiment"></div><h3>Ready when you are!</h3><p>Add an image (or try our flower) and press <strong>Run experiment</strong> to see something wonderful.</p><div class="empty-sparkles">✦ &nbsp; ✿ &nbsp; ✧</div></div>
+    <div id="loadingResults" class="loading-results" hidden><span class="loader-flower">✿</span><strong>Making some pixel magic...</strong><p>Applying your computer vision algorithm.</p></div>
+    <div id="errorResults" class="error-results" role="alert" hidden></div>
+    <div id="renderedResults" class="rendered-results" hidden><div class="result-stats" id="resultStats"></div><div class="output-grid" id="outputGrid"></div><div class="analysis-box"><span>✳ OBSERVATION NOTES</span><p id="resultNote"></p></div></div>
+  </div>
+  <div class="lab-bottom-nav"><a href="preview-lab04.html">← Previous: Lab 04</a><span>✿ KEEP BLOOMING ✿</span><a href="preview-lab06.html">Next: Lab 06 →</a></div>
+</div>
+<div class="camera-modal" id="cameraModal" hidden><div class="camera-dialog"><div class="camera-top"><h2>Capture a photo <span>✿</span></h2><button type="button" id="cameraClose" aria-label="Close camera">×</button></div><video id="cameraPreview" autoplay muted playsinline></video><canvas id="cameraCanvas" hidden></canvas><button class="btn btn-run" type="button" id="cameraCapture">Capture & use photo ↗</button><p>Camera access needs localhost or a secure HTTPS connection.</p></div></div>
+</main>
+    <footer class="footer"><div>✿ <strong>eye✿wonder</strong> <span>·</span> Grow your curiosity, one pixel at a time.</div><div>CSST106 <span>♡</span> Computer Vision & Perception</div></footer>
+  </div>
+</div>
+<script src="static/js/app.js" defer></script>
+
+</body>
+</html>

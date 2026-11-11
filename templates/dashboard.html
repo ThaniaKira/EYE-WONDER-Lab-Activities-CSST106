@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="dashboard page-padding">
+  <div class="page-intro"><div><span class="eyebrow">YOUR CREATIVE SPACE <span>✳</span></span><h1>Hello, <em>visionary!</em> <span class="hello-star">✦</span></h1><p>A little curiosity, a little code, and a whole lot of magic.</p></div><div class="today-note"><span class="tiny-purple-flower">✿</span> A fresh perspective starts here.</div></div>
+  <section class="hero-card" aria-label="Welcome to eye✿wonder">
+    <div class="hero-stars">✦ <span>✧</span> ✧</div><div class="hero-orbit-circle"></div>
+    <div class="hero-copy"><span class="hero-kicker"><span class="kicker-dot"></span> WELCOME TO THE FUTURE OF VISION</span><h2>Where pixels<br>meet <em>possibility.</em></h2><p>A playground for curious minds. Upload, experiment and see computer vision come alive — with a touch of bloom.</p><div class="hero-actions"><a class="btn btn-light" href="{{ url_for('laboratory',lab_id=1) }}">Start exploring <span>↗</span></a><a class="btn btn-ghost" href="#modules">See all modules <span>↓</span></a></div></div>
+    <div class="hero-art"><div class="orbit orbit-a"></div><div class="orbit orbit-b"></div><img class="hero-robot" src="{{ url_for('static',filename='assets/robot-flower.svg') }}" alt="Cute futuristic lavender robot with flower antennae"><span class="orbit-petal p1">✿</span><span class="orbit-petal p2">✧</span><span class="orbit-petal p3">✿</span><span class="orbit-petal p4">✦</span><div class="hero-art-caption"><span class="neon-dot"></span> VISION ASSISTANT · ONLINE</div></div>
+    <div class="hero-bottom-line"><span>CHAPTER 01 — 07</span><span>LEARN • BUILD • DISCOVER</span></div>
+  </section>
+  <section class="stats-row" aria-label="Lab portfolio stats">
+    <div class="stat"><div class="stat-icon pink-icon">✿</div><div><strong>07 <small>modules</small></strong><span>All in one place</span></div></div>
+    <div class="stat"><div class="stat-icon purple-icon">⌘</div><div><strong>OpenCV</strong><span>Hands-on processing</span></div></div>
+    <div class="stat"><div class="stat-icon peach-icon">✦</div><div><strong>AI + ML</strong><span>Explore deeper vision</span></div></div>
+    <div class="stat"><div class="stat-icon aqua-icon">♡</div><div><strong>100% <small>curiosity</small></strong><span>Made for discovery</span></div></div>
+  </section>
+  <section class="modules-section" id="modules">
+    <div class="section-head"><div><span class="eyebrow">THE EXPERIMENT COLLECTION <span>✳</span></span><h2>Explore your <em>laboratories.</em></h2><p>Seven little worlds, endless things to discover.</p></div><div class="section-search"><span>⌕</span><input id="labSearch" type="search" aria-label="Search labs" placeholder="Find a lab..."></div></div>
+    <div class="cards-grid" id="labGrid">
+      {% for item in labs %}
+      <a class="lab-card theme-{{ item.theme }}" href="{{ url_for('laboratory',lab_id=item.id) }}" data-search="{{ (item.short ~ ' ' ~ item.title ~ ' ' ~ item.description ~ ' ' ~ (item.tags|join(' ')))|lower }}">
+        <div class="card-top"><span class="card-number">LAB {{ '%02d'|format(item.id) }}</span><span class="card-arrow">↗</span></div>
+        <div class="card-art card-art-{{ item.id }}"><span class="art-glow"></span><span class="card-art-icon">{% if item.id == 1 %}▧{% elif item.id == 2 %}⌁{% elif item.id == 3 %}▥{% elif item.id == 4 %}✳{% elif item.id == 5 %}◉{% elif item.id == 6 %}⊞{% else %}◈{% endif %}</span><span class="art-mini-flower">✿</span><span class="art-mini-star">✧</span></div>
+        <div class="card-content"><span class="card-category">{{ item.eyebrow }}</span><h3>{{ item.short }}</h3><p>{{ item.description }}</p><div class="card-footer"><span>{{ item.tags[0] }} <b>·</b> {{ item.tags[1] }}</span><span class="card-open">Explore <span>↗</span></span></div></div>
+      </a>
+      {% endfor %}
+      <div class="collection-note"><div class="collection-note-inner"><div class="note-floats">✧ ✿</div><span class="eyebrow">A LITTLE REMINDER</span><h3>Every expert was once a beginner.</h3><p>One upload. One experiment. One blooming idea at a time.</p><a href="{{ url_for('guide') }}">How to use eye✿wonder <span>↗</span></a></div></div>
+    </div>
+    <p class="no-search" id="noSearch" hidden>No matching lab found. Try another keyword. ✿</p>
+  </section>
+  <section class="bottom-banner"><span class="banner-flower">✿</span><div><span class="eyebrow">KEEP ON EXPLORING</span><h2>Curiosity looks good on you.</h2><p>Turn algorithms into something you can actually see.</p></div><a href="{{ url_for('laboratory',lab_id=1) }}" class="btn btn-purple">Jump into a lab <span>↗</span></a></section>
+</div>
+{% endblock %}

@@ -1,0 +1,4 @@
+# Install in addition to requirements.txt for YOLOv11 and DeepLabV3 semantic segmentation.
+ultralytics>=8.3
+torch>=2.2
+torchvision>=0.17

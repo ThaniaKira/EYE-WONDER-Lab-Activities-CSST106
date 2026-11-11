@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %}Lab {{ '%02d'|format(lab.id) }} — {{ lab.short }} | eye✿wonder{% endblock %}
+{% block content %}
+<div class="lab-page page-padding" data-lab="{{ lab.id }}">
+  <a class="back-link" href="{{ url_for('dashboard') }}#modules">← Back to laboratories</a>
+  <div class="lab-heading"><div><span class="eyebrow">EXPERIMENT {{ '%02d'|format(lab.id) }} / 07 <span>✳</span> {{ lab.eyebrow }}</span><h1>{{ lab.title }}<span class="title-flower">✿</span></h1><p>{{ lab.description }}</p><div class="tag-list">{% for tag in lab.tags %}<span>{{ tag }}</span>{% endfor %}</div></div><div class="lab-heading-art theme-{{ lab.theme }}"><div class="lab-heading-orbit"></div><img src="{{ url_for('static',filename='assets/robot-flower.svg') }}" alt="eye✿wonder assistant"></div></div>
+  <div class="workbench" id="workbench">
+    <div class="control-panel"><div class="panel-heading"><span class="panel-number">01</span><div><h2>Experiment settings</h2><p>Make it yours. Let's get exploring.</p></div></div>
+      <form id="processForm" enctype="multipart/form-data">
+        {% if lab.id==5 %}
+        <div class="field"><label for="mode">Experiment mode</label><select name="mode" id="mode"><option value="compression">Image PCA compression</option><option value="faces">LFW · Eigenfaces + SVM</option></select><span class="field-help">LFW uses the real face dataset and can require a first-time download.</span></div>
+        {% endif %}
+        {% if lab.id==6 %}
+        <div class="field"><label for="inputType">Input source</label><select id="inputType"><option value="image">Upload image / camera still</option><option value="video">Upload short video (MP4)</option></select></div>
+        {% endif %}
+        <div class="upload-wrapper" id="uploadWrapper"><div class="field-label">01 / YOUR INPUT</div><label class="upload-zone" for="imageInput" id="dropZone"><input type="file" name="image" id="imageInput" accept="image/png,image/jpeg,image/webp,image/bmp" hidden><span class="upload-flower">✿</span><strong>Drop your image here</strong><small>or click to browse files</small><span class="upload-types">JPG, PNG, WEBP · up to 32 MB</span></label><div class="chosen-file" id="chosenFile" hidden><span>◈</span><span id="chosenFileName"></span><button type="button" id="removeFile" aria-label="Remove image">×</button></div><div class="upload-helper"><button type="button" class="mini-btn" id="sampleButton">✿ Try sample flower</button><button type="button" class="mini-btn" id="cameraButton">◎ Use camera</button></div></div>
+        {% if lab.id==6 %}<div class="video-wrapper" id="videoWrapper" hidden><div class="field-label">01 / VIDEO INPUT</div><label class="upload-zone" for="videoInput"><input type="file" name="video" id="videoInput" accept="video/mp4,video/quicktime,video/webm" hidden><span class="upload-flower">▷</span><strong>Choose a short video</strong><small>Up to 180 frames will be analyzed</small><span class="upload-types">MP4 preferred · up to 32 MB</span></label><span class="field-help" id="videoName"></span></div>{% endif %}
+        <div class="fields-section" id="fieldsSection"><div class="field-label">02 / TUNE YOUR SETTINGS</div>
+        {% if lab.id==1 %}
+        <div class="field"><label for="scale">Resize scale <output id="scaleValue">60%</output></label><input type="range" id="scale" name="scale" min="20" max="200" value="60" data-unit="%"></div>
+        <div class="field"><label for="rotation">Rotation angle</label><select name="rotation" id="rotation"><option value="90">90° clockwise</option><option value="180">180°</option><option value="270">270° clockwise</option><option value="0">0° original</option></select></div>
+        <div class="field"><label for="crop">Centered crop <output id="cropValue">65%</output></label><input type="range" id="crop" name="crop" min="20" max="95" value="65" data-unit="%"></div>
+        <div class="field"><label for="pixel_color">New pixel color</label><input type="color" name="pixel_color" id="pixel_color" value="#f85acb" aria-label="Choose edited pixel color"></div>
+        <div class="field field-pair"><div><label for="pixel_x">Pixel X</label><input type="number" id="pixel_x" name="pixel_x" min="0" placeholder="Auto center"></div><div><label for="pixel_y">Pixel Y</label><input type="number" id="pixel_y" name="pixel_y" min="0" placeholder="Auto center"></div></div>
+        {% elif lab.id==2 %}
+        <div class="field"><label for="canny_low">Canny low threshold <output id="canny_lowValue">80</output></label><input type="range" id="canny_low" name="canny_low" min="0" max="200" value="80"></div>
+        <div class="field"><label for="canny_high">Canny high threshold <output id="canny_highValue">190</output></label><input type="range" id="canny_high" name="canny_high" min="20" max="255" value="190"></div>
+        {% elif lab.id==3 %}
+        <div class="field"><label for="clip">CLAHE clip limit <output id="clipValue">2</output></label><input type="range" id="clip" name="clip" min="1" max="8" step=".5" value="2"></div>
+        <div class="field"><label for="tile">CLAHE tile grid <output id="tileValue">8</output></label><input type="range" id="tile" name="tile" min="2" max="16" value="8"></div>
+        <div class="field"><label for="contrast">Contrast gain <output id="contrastValue">1.35</output></label><input type="range" id="contrast" name="contrast" min=".5" max="3" step=".05" value="1.35"></div>
+        <div class="field"><label for="brightness">Brightness <output id="brightnessValue">12</output></label><input type="range" id="brightness" name="brightness" min="-100" max="100" value="12"></div>
+        {% elif lab.id==4 %}
+        <div class="field"><label for="detector">Choose feature detector</label><select name="detector" id="detector"><option value="SIFT">SIFT (reliable default)</option><option value="ORB">ORB (fast alternative)</option><option value="SURF">SURF (requires nonfree build)</option></select></div>
+        <div class="field"><label for="hessian">SURF Hessian threshold <output id="hessianValue">400</output></label><input type="range" id="hessian" name="hessian" min="100" max="2000" step="100" value="400"></div>
+        <div class="field"><label class="checkbox-label"><input type="checkbox" name="upright" value="true"> U-SURF (upright orientation when using SURF)</label></div>
+        <div class="field"><label for="reference">Second image for feature matching (optional)</label><input type="file" class="file-secondary" name="reference" id="reference" accept="image/*"><span class="field-help">Upload a second image of the same object or scene to visualize descriptor matches.</span></div>
+        {% elif lab.id==5 %}
+        <div class="field"><label for="components">PCA components <output id="componentsValue">28</output></label><input type="range" id="components" name="components" min="2" max="150" value="28"></div><p class="setting-footnote">The assigned LFW mode uses PCA whitening and a balanced RBF SVM classifier.</p>
+        {% elif lab.id==6 %}
+        <div class="field"><label for="confidence">Detection confidence <output id="confidenceValue">0.35</output></label><input type="range" id="confidence" name="confidence" min="0.05" max="0.95" step="0.05" value="0.35"></div><p class="setting-footnote">First run downloads <code>yolo11n.pt</code> if it is not already on your machine. Custom model weights can be selected by environment variable.</p>
+        {% elif lab.id==7 %}
+        <div class="field"><label for="seg_method">Segmentation technique</label><select name="seg_method" id="seg_method"><option value="compare">Compare traditional techniques</option><option value="threshold">Global + adaptive threshold</option><option value="region">Region growing + watershed</option><option value="edge">Edge-based segmentation</option><option value="semantic">Semantic · DeepLabV3 (optional)</option></select></div>
+        <div class="field"><label for="tolerance">Region similarity tolerance <output id="toleranceValue">20</output></label><input type="range" id="tolerance" name="tolerance" min="0" max="100" value="20"></div>
+        <div class="field"><label for="block">Adaptive threshold neighborhood <output id="blockValue">15</output></label><input type="range" id="block" name="block" min="3" max="51" step="2" value="15"></div>
+        <div class="field field-pair"><div><label for="seed_x">Seed X (%)</label><input type="number" name="seed_x" id="seed_x" value="50" min="0" max="100"></div><div><label for="seed_y">Seed Y (%)</label><input type="number" name="seed_y" id="seed_y" value="50" min="0" max="100"></div></div>
+        {% endif %}
+        </div>
+        <button type="submit" class="btn btn-run" id="runButton"><span>✦</span> Run experiment <span class="run-arrow">↗</span></button><p class="control-footnote">✿ Image processing runs locally on your Python server.</p>
+      </form>
+    </div>
+    <div class="result-panel"><div class="panel-heading"><span class="panel-number">02</span><div><h2>Your vision, reimagined</h2><p>Original input and algorithm outputs appear here.</p></div><span class="results-status" id="resultsStatus">READY TO EXPLORE</span></div>
+    <div class="empty-results" id="emptyResults"><div class="empty-art"><span class="empty-ring r1"></span><span class="empty-ring r2"></span><img src="{{ url_for('static',filename='assets/robot-flower.svg') }}" alt="Friendly robot awaiting an experiment"></div><h3>Ready when you are!</h3><p>Add an image (or try our flower) and press <strong>Run experiment</strong> to see something wonderful.</p><div class="empty-sparkles">✦ &nbsp; ✿ &nbsp; ✧</div></div>
+    <div id="loadingResults" class="loading-results" hidden><span class="loader-flower">✿</span><strong>Making some pixel magic...</strong><p>Applying your computer vision algorithm.</p></div>
+    <div id="errorResults" class="error-results" role="alert" hidden></div>
+    <div id="renderedResults" class="rendered-results" hidden><div class="result-stats" id="resultStats"></div><div class="output-grid" id="outputGrid"></div><div class="analysis-box"><span>✳ OBSERVATION NOTES</span><p id="resultNote"></p></div></div>
+  </div>
+  <div class="lab-bottom-nav">{% if lab.id > 1 %}<a href="{{ url_for('laboratory',lab_id=lab.id-1) }}">← Previous: Lab {{ '%02d'|format(lab.id-1) }}</a>{% else %}<a href="{{ url_for('dashboard') }}">← Overview</a>{% endif %}<span>✿ KEEP BLOOMING ✿</span>{% if lab.id < 7 %}<a href="{{ url_for('laboratory',lab_id=lab.id+1) }}">Next: Lab {{ '%02d'|format(lab.id+1) }} →</a>{% else %}<a href="{{ url_for('guide') }}">Project guide →</a>{% endif %}</div>
+</div>
+<div class="camera-modal" id="cameraModal" hidden><div class="camera-dialog"><div class="camera-top"><h2>Capture a photo <span>✿</span></h2><button type="button" id="cameraClose" aria-label="Close camera">×</button></div><video id="cameraPreview" autoplay muted playsinline></video><canvas id="cameraCanvas" hidden></canvas><button class="btn btn-run" type="button" id="cameraCapture">Capture & use photo ↗</button><p>Camera access needs localhost or a secure HTTPS connection.</p></div></div>
+{% endblock %}
