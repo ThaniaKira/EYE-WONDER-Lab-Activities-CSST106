@@ -46,54 +46,6 @@ YOLO11 pretrained weights (`yolo11n.pt`) and DeepLabV3 weights may download auto
 | 06 YOLO11 | Object detection on uploaded image, optional video and camera still | Needs `ultralytics`; custom training is separate |
 | 07 Segmentation | Otsu, adaptive threshold, region growing, watershed, Canny contours and optional DeepLabV3 | DeepLabV3 needs PyTorch/TorchVision and pretrained weights |
 
-## Custom YOLO training and evaluation (Lab 06)
-
-Your lab handout specifies **YOLOv11**, even though the uploaded filename mentions YOLOv8. The weight filename used by current Ultralytics code is `yolo11n.pt`.
-
-1. Collect and annotate your real images using LabelImg/Roboflow and export in YOLO format (`class_id x_center y_center width height`, normalized).
-2. Organize `datasets/objects/images/{train,val,test}` and `datasets/objects/labels/{train,val,test}`. Build a `data.yaml` referencing those paths, the class count, and class names. Keep test images unseen during training.
-3. Train, validate, and optionally evaluate on your separate test split:
-
-```bash
-python scripts/train_yolo.py --data datasets/objects/data.yaml --epochs 50 --test
-```
-
-4. The script records precision, recall, mAP@.50 and mAP@.50:.95 in `visionlab_metrics.json`. Report **real metrics** measured with your own dataset. Training is not a button in this Web UI; it uses the included script.
-5. To load your locally trained best weights in the Web UI:
-
-```powershell
-$env:VISIONLAB_YOLO_WEIGHTS="runs/visionlab/custom-detection/weights/best.pt"
-python app.py
-```
-
-On macOS/Linux use `export VISIONLAB_YOLO_WEIGHTS="..."`.
-
-## Limitations and honesty notes
-
-- **SURF:** Standard `opencv-contrib-python` wheels often ship without the nonfree SURF implementation. The app returns an explicit error instead of silently labeling an ORB/SIFT result as SURF. Genuine SURF experiments need a custom, nonfree-enabled OpenCV build compatible with your system.
-- **Eigenfaces:** The LFW experimental mode uses the required `min_faces_per_person=70`, 80/20 split, 150 whitened principal components (if feasible), and balanced RBF SVM. It computes test-set results each time; don't claim a fixed accuracy without running it. Single-image PCA is an extra exploratory technique, **not** a substitute for Eigenfaces.
-- **DeepLabV3:** A pretrained semantic segmentation model runs only when its packages and model weights are installed; its classes depend on those included in the weights.
-- **Video:** Uploaded videos are processed for up to 180 frames; outputs are stored in `media/` locally until manually removed. `mp4v` encoding is supported by many OpenCV installs but some browsers may require a compatible conversion. Do not upload private videos to a public demo.
-- **File size:** 32 MB total request limit. Image resolution is scaled down for browser-friendly processing.
-- This application works locally and does not deploy itself to GitHub or a hosting provider.
-
-## GitHub steps
-
-```bash
-git init
-git add .
-git commit -m "Build VisionLab CSST106 web application"
-git branch -M main
-git remote add origin https://github.com/YOUR-USERNAME/VisionLab-CSST106.git
-git push -u origin main
-```
-
-Replace `YOUR-USERNAME` and create the repository on GitHub first. Keep personal datasets, private images, trained weights, and generated videos out of the repo; `.gitignore` excludes these.
-
-## Printed hard-copy report checklist
-
-For every laboratory (01–07), document: **objectives; background; tools and libraries; procedure; algorithm(s); implementation screenshots; actual output results; observations and limitations; answers to handout questions; conclusions.** Include a cover page, table of contents, references, and appendices where appropriate. Screenshot the relevant UI after each actual successful experiment and ensure printed results match your running code.
-
 ## Local project structure
 
 ```text
@@ -110,4 +62,3 @@ media/                      Local processed videos (ignored)
 reports/                    Your report images and report work
 ```
 
-**Design direction:** dreamy lavender, plum gradients, pink accents, retro floral flourishes and a holographic robot. Artwork is original to this project and does not copy the provided inspiration screenshots.
