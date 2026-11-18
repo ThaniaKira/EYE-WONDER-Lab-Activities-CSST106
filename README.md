@@ -1,4 +1,4 @@
-# VisionLab ✿ — Computer Vision & Perception (CSST106)
+# eye✿wonder — Computer Vision & Perception (CSST106)
 
 A responsive, purple, floral-futuristic **Flask Web UI** bringing together seven computer-vision laboratory exercises. Built with custom CSS, a robot illustration, animated flower mascot, Python, OpenCV, scikit-learn, and optional deep learning dependencies.
 
